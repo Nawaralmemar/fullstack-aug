@@ -30,7 +30,6 @@ app.use(
             '/users/signup',
             '/status',
             '/teachers',
-            /^\/teachers\/.*/,
             '/users',
         ],
     })

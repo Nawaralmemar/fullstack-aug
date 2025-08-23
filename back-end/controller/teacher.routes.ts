@@ -1,6 +1,11 @@
 /**
  * @swagger
  *   components:
+ *    securitySchemes:
+ *      bearerAuth:
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
  *    schemas:
  *      Teacher:
  *          type: object
@@ -34,13 +39,22 @@ const teacherRouter = express.Router();
  *               items:
  *                  $ref: '#/components/schemas/Teacher'
  */
-teacherRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {});
+teacherRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const teachers = await teacherService.getAllTeachers();
+        res.status(200).json(teachers);
+    } catch (error) {
+        next(error);
+    }
+});
 
 /**
  * @swagger
  * /teachers/{teacherId}/learningPath:
  *   put:
  *     summary: Update the learning path of a teacher
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: teacherId
@@ -61,10 +75,27 @@ teacherRouter.get('/', async (req: Request, res: Response, next: NextFunction) =
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Teacher'
+ *       400:
+ *         description: Unauthorized - JWT token error
  */
 teacherRouter.put(
     '/:teacherId/learningpath',
-    async (req: Request, res: Response, next: NextFunction) => {}
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const teacherId = parseInt(req.params.teacherId);
+            const { learningPath } = req.query as { learningPath?: string };
+            const currentUserRole = (req as any).auth?.role as string | undefined;
+
+            const updatedTeacher = await teacherService.updateLearningPath(
+                teacherId,
+                learningPath as string,
+                currentUserRole
+            );
+            res.status(200).json(updatedTeacher);
+        } catch (error) {
+            next(error);
+        }
+    }
 );
 
 export { teacherRouter };

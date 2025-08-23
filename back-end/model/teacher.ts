@@ -22,7 +22,17 @@ export class Teacher {
         this.learningPath = teacher.learningPath;
     }
 
-    static from() {
-        return null;
+    get fullName(): string {
+        return `${this.user.firstName} ${this.user.lastName}`;
+    }
+
+    static from(teacherPrisma: TeacherPrisma & { user: UserPrisma }): Teacher {
+        return new Teacher({
+            id: teacherPrisma.id,
+            user: User.from(teacherPrisma.user),
+            createdAt: teacherPrisma.createdAt,
+            updatedAt: teacherPrisma.updatedAt,
+            learningPath: teacherPrisma.learningPath,
+        });
     }
 }
