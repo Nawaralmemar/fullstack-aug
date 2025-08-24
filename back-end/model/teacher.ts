@@ -8,6 +8,7 @@ export class Teacher {
     readonly updatedAt?: Date;
     readonly learningPath: string;
 
+    // TODO: Add validation for the teacher object later
     constructor(teacher: {
         id?: number;
         user: User;

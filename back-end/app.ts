@@ -8,6 +8,7 @@ import { expressjwt } from 'express-jwt';
 import { userRouter } from './controller/user.routes';
 import helmet from 'helmet';
 import { teacherRouter } from './controller/teacher.routes';
+import { classroomRouter } from './controller/classroom.routes';
 
 const app = express();
 app.use(helmet());
@@ -36,6 +37,7 @@ app.use(
 );
 
 app.use('/teachers', teacherRouter);
+app.use('/classrooms', classroomRouter);
 app.use('/users', userRouter);
 
 app.get('/status', (req, res) => {
@@ -60,6 +62,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
         res.status(401).json({ status: 'unauthorized', message: err.message });
     } else if (err.name === 'ClassesError') {
         res.status(400).json({ status: 'domain error', message: err.message });
+    } else if (err.name === 'DUPLICATE') {
+        res.status(409).json({ status: 'conflict', message: err.message });
     } else {
         res.status(400).json({ status: 'application error', message: err.message });
     }

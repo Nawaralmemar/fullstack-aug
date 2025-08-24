@@ -19,6 +19,7 @@ const updateLearningPath = async (
             message: 'Only admins can update learning paths.',
         });
     }
+    // TODO: Move this validation to the model? and/or put it in types
     const validLearningPaths = ['Infrastructure', 'Software development', 'Cybersecurity'];
     if (!validLearningPaths.includes(learningPath)) {
         throw new Error('Invalid learning path. Must be one of: Infrastructure, Software development, Cybersecurity');
