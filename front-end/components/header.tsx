@@ -28,6 +28,11 @@ const Header: React.FC = () => {
           className=" px-4 text-xl text-white  hover:bg-gray-600 rounded-lg">
           {t('header.nav.home')}
         </Link>
+        <Link
+          href="/teachers"
+          className=" px-4 text-xl text-white  hover:bg-gray-600 rounded-lg">
+          Teachers
+        </Link>
 
         {!loggedInUser && (
           <Link
