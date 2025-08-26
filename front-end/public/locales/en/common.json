@@ -7,6 +7,7 @@
       "home": "Home",
       "classrooms": "Classrooms",
       "teachers": "Teachers",
+      "addClassroom": "Add classroom",
       "add-teacher": "Add Teacher",
       "login": "Login",
       "logout": "Logout"
@@ -25,5 +26,15 @@
   "home": {
     "title": "Good luck with the exam!",
     "description": ""
+  },
+  "classroom": {
+    "title": "Add classroom",
+    "form": {
+      "label": { "name": "Name" },
+      "error": { "required": "Name is required", "exists": "Classroom already exists" },
+      "success": "Added classroom with name {{name}} and ID {{id}}",
+      "button": "Add"
+    },
+    "accessDenied": "You are not authorized to access this page."
   }
 }

@@ -31,8 +31,16 @@ const Header: React.FC = () => {
         <Link
           href="/teachers"
           className=" px-4 text-xl text-white  hover:bg-gray-600 rounded-lg">
-          Teachers
+          {t('header.nav.teachers')}
         </Link>
+
+        {loggedInUser?.role === 'admin' && (
+          <Link
+            href="/classroom"
+            className=" px-4 text-xl text-white  hover:bg-gray-600 rounded-lg">
+            {t('header.nav.addClassroom')}
+          </Link>
+        )}
 
         {!loggedInUser && (
           <Link
